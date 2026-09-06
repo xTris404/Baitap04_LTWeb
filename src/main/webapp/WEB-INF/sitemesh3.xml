@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Cấu hình SiteMesh 3 (bản Jakarta 3.2.x, tương thích Tomcat 10+).
+
+    Chỉ cần khai báo dependency "sitemesh" + "sitemesh-webfilter" trong pom.xml
+    (sitemesh-webfilter tự đăng ký 1 Filter cho toàn ứng dụng, KHÔNG cần viết
+    thêm class Filter nào), rồi đặt file cấu hình này tại
+    /WEB-INF/sitemesh3.xml là SiteMesh sẽ tự nạp.
+
+    - decorator-prefix mặc định là "/WEB-INF/decorators/" nên bên dưới chỉ cần
+      ghi tên file decorator ("main.jsp"), KHÔNG lặp lại đường dẫn đầy đủ.
+    - mapping path="/*" decorator="main.jsp": mọi trang HTML (login, register,
+      trang chủ, quản lý danh mục, hồ sơ cá nhân, ...) đều được bọc chung bởi
+      decorator main.jsp (header + nav + footer dùng chung).
+    - Các URL không phải trang HTML (CSS tĩnh, servlet trả file ảnh nhị phân)
+      được loại trừ khỏi SiteMesh để không bị parse HTML nhầm.
+-->
+<sitemesh>
+    <mapping path="/*" decorator="main.jsp"/>
+    <mapping path="/assets/*" exclude="true"/>
+    <mapping path="/image" exclude="true"/>
+</sitemesh>
